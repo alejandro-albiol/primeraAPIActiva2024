@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>new Association type</title>
+</head>
+<body>
+<form action="/api/v1/association" method="POST" id="associationForm">
+    <p>
+        <label for="name-field">Nombre de la asociación: </label>
+        <input type="text" name="name" id="name-field" required>
+    </p>
+    <p>
+        <label for="description-field">Descripción: </label>
+        <textarea name="description" id="description-field" required></textarea>
+    </p>
+    <p>
+        <label for="type-field">Tipo de asociación: </label>
+        <select name="type" id="type-field" required>
+            <option value="">Seleccione un tipo</option>
+        </select>
+    </p>
+    <p>
+        <label for="location-field">Ubicación: </label>
+        <input type="text" name="location" id="location-field" required>
+    </p>
+    <p>
+        <label for="founded_date-field">Fecha de fundación: </label>
+        <input type="date" name="founded_date" id="founded_date-field" required>
+    </p>
+    <p>
+        <label for="contact_email-field">Correo electrónico de contacto: </label>
+        <input type="email" name="contact_email" id="contact_email-field" required>
+    </p>
+    <p>
+        <input type="submit" value="Crear asociación">
+    </p>
+</form>
+</body>
+</html>

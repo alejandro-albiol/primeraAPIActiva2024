@@ -1,37 +1,37 @@
 import pool from "../config/configDb.js";
 import { ProcessResult } from "../types/ProcessResult.js";
-import { User } from "../types/User.js";
+import { Association } from "../types/Association.js";
 
-export  class UserModel {
-    static async saveNewUser(user: User): Promise<ProcessResult> {
+export class AssociationModel {
+    static async saveNewAssociation(association: Association): Promise<ProcessResult> {
         try {
-            const queryString = `INSERT INTO "user" ("userName", "name", "first_surname", "password", "email") VALUES ('${user.userName}', '${user.name}', '${user.first_surname}', '${user.password}','${user.email}')`;
+            const queryString = `INSERT INTO "association" ("name", "description", "type", "location", "founded_date", "contact_email") VALUES ('${association.name}', '${association.description}', '${association.type}', '${association.location}', '${association.founded_date}', '${association.contact_email}')`;
             const result = await pool.query(queryString);
             if (result.rowCount && result.rowCount > 0) {
                 return {
                     success: true,
-                    message: 'Usuario creado',
+                    message: 'Asociación creada',
                     rowsAffected: result.rowCount
                 };
             } else {
                 return {
                     success: false,
-                    message: 'No se pudo crear el usuario',
+                    message: 'No se pudo crear la asociación',
                     rowsAffected: 0
                 };
             }
         } catch (error) {
             return {
                 success: false,
-                message: `Error al crear usuario: ${(error as Error).message}`,
+                message: `Error al crear asociación: ${(error as Error).message}`,
                 rowsAffected: 0
             };
         }
     }
 
-    static async getUsers(): Promise<ProcessResult> {
+    static async getAssociations(): Promise<ProcessResult> {
         try {
-            const queryString = `SELECT * FROM "user"`;
+            const queryString = `SELECT * FROM "association"`;
             const result = await pool.query(queryString);
             if (result.rowCount && result.rowCount > 0) {
                 return {
@@ -42,22 +42,22 @@ export  class UserModel {
             } else {
                 return {
                     success: false,
-                    message: 'No se encontraron usuarios',
+                    message: 'No se encontraron asociaciones',
                     rowsAffected: 0
                 };
             }
         } catch (error) {
             return {
                 success: false,
-                message: `Error al buscar usuarios: ${(error as Error).message}`,
+                message: `Error al buscar asociaciones: ${(error as Error).message}`,
                 rowsAffected: 0
             };
         }
     }
 
-    static async findUserById(id: string): Promise<ProcessResult> {
+    static async getAssociationById(id: string): Promise<ProcessResult> {
         try {
-            const queryString = `SELECT * FROM "user" WHERE "id" = ${id}`;
+            const queryString = `SELECT * FROM "association" WHERE "id" = ${id}`;
             const result = await pool.query(queryString);
             if (result.rowCount && result.rowCount > 0) {
                 return {
@@ -68,41 +68,41 @@ export  class UserModel {
             } else {
                 return {
                     success: false,
-                    message: 'No se encontró el usuario',
+                    message: 'No se encontró la asociación',
                     rowsAffected: 0
                 };
             }
         } catch (error) {
             return {
                 success: false,
-                message: `Error al buscar usuario: ${(error as Error).message}`,
+                message: `Error al buscar asociación: ${(error as Error).message}`,
                 rowsAffected: 0
             };
         }
     }
 
-    static async deleteUserById(id: string): Promise<ProcessResult> {
+    static async deleteAssociationById(id: string): Promise<ProcessResult> {
         try {
-            const queryString = `DELETE FROM "user" WHERE "id" = ${id}`;
+            const queryString = `DELETE FROM "association" WHERE "id" = ${id}`;
             const result = await pool.query(queryString);
             
             if (result.rowCount && result.rowCount > 0) {
                 return {
                     success: true,
-                    message: `Usuario eliminado correctamente.`,
+                    message: `Asociación eliminada correctamente.`,
                     rowsAffected: result.rowCount
                 };
             } else {
                 return {
                     success: false,
-                    message: 'No se encontró el usuario',
+                    message: 'No se encontró la asociación',
                     rowsAffected: 0
                 };
             }
         } catch (error) {
             return {
                 success: false,
-                message: `Error al eliminar usuario: ${(error as Error).message}`
+                message: `Error al eliminar asociación: ${(error as Error).message}`
             };
         }
     }
