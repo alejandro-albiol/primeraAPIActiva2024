@@ -1,4 +1,4 @@
 export interface AssociationType{
     id?:string;
-    type:string;
+    type_name:string;
 }

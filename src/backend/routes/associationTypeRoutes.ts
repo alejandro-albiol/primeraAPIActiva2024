@@ -1,60 +1,50 @@
 import Express from 'express';
 import { AssociationTypeController } from '../controllers/associationTypeController.js';
-import { Association } from '../types/Association.js';
 import { AssociationType } from '../types/AssociationType.js';
+import { ProcessResult } from '../types/ProcessResult.js';
 
 const associationTypesRouter = Express.Router();
 
 associationTypesRouter.get('/', async (req: Express.Request, res: Express.Response) => {
-    try {
-        const result = await AssociationTypeController.getAssociationTypes();
-        res.status(200).send(result);
-    } catch (error) {
-        res.status(500).send({ success: false, message: 'Error fetching association types' });
-    }
-});
-
-associationTypesRouter.post('/', async (req: Express.Request, res: Express.Response) => {
-    try {
-        const associationType:AssociationType = {type: req.body.type};
-        console.log(req.body)//TODO: El body es undefined
-        const result = await AssociationTypeController.createAssociationType(associationType);
-        res.status(201).send(result);
-    } catch (error) {
-        res.status(500).send({ success: false, message: 'Error creating association type' });
-    }
+    const result: ProcessResult = await AssociationTypeController.getAssociationTypes();
+    let statusCode = 200;
+    if (!result.success && result.rowsAffected === 0) statusCode = 404;
+    if (!result.success && !("rowsAffected" in result)) statusCode = 500;
+    res.status(statusCode).json({ message: result.message });
 });
 
 associationTypesRouter.get('/:id', async (req: Express.Request, res: Express.Response) => {
-    try {
-        const id = req.params.id;
-        const result = await AssociationTypeController.getAssociationTypeById(id);
-        res.status(200).send(result);
-    } catch (error) {
-        res.status(500).send({ success: false, message: 'Error fetching association type' });
-    }
+    const result: ProcessResult = await AssociationTypeController.getAssociationTypeById(req.params.id);
+    let statusCode = 200;
+    if (!result.success && result.rowsAffected === 0) statusCode = 404;
+    if (!result.success && !("rowsAffected" in result)) statusCode = 500;
+    res.status(statusCode).json({ message: result.message });
+});
+
+associationTypesRouter.post('/', async (req: Express.Request, res: Express.Response) => {
+    const associationType: AssociationType = { type_name: req.body.type_name };
+    const result: ProcessResult = await AssociationTypeController.createAssociationType(associationType);
+    let statusCode = 201;
+    if (!result.success && result.rowsAffected === 0) statusCode = 400;
+    if (!result.success && !("rowsAffected" in result)) statusCode = 500;
+    res.status(statusCode).json({ message: result.message });
 });
 
 associationTypesRouter.put('/:id', async (req: Express.Request, res: Express.Response) => {
-    try {
-        const id = req.params.id;
-        const associationType = req.body;
-        const result = await AssociationTypeController.updateAssociationType(id, associationType);
-        res.status(200).send(result);
-    } catch (error) {
-        res.status(500).send({ success: false, message: 'Error updating association type' });
-    }
+    const associationType: AssociationType = { id: req.params.id, type_name: req.body.type_name };
+    const result: ProcessResult = await AssociationTypeController.updateAssociationType(associationType);
+    let statusCode = 200;
+    if (!result.success && result.rowsAffected === 0) statusCode = 404;
+    if (!result.success && !("rowsAffected" in result)) statusCode = 500;
+    res.status(statusCode).json({ message: result.message });
 });
 
 associationTypesRouter.delete('/:id', async (req: Express.Request, res: Express.Response) => {
-    try {
-        const id = req.params.id;
-        const result = await AssociationTypeController.deleteAssociationType(id);
-        res.status(200).send(result);
-    } catch (error) {
-        res.status(500).send({ success: false, message: 'Error deleting association type' });
-    }
+    const result: ProcessResult = await AssociationTypeController.deleteAssociationType(req.params.id);
+    let statusCode = 200;
+    if (!result.success && result.rowsAffected === 0) statusCode = 404;
+    if (!result.success && !("rowsAffected" in result)) statusCode = 500;
+    res.status(statusCode).json({ message: result.message });
 });
 
 export { associationTypesRouter };
-

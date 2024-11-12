@@ -43,4 +43,12 @@ export class UserController {
             return error;
         }
     }
+    static async updateUserById(id: string, updates: { [key: string]: any }): Promise<ProcessResult> {
+        try {
+            const result = await UserModel.updateUserById(id, updates);
+            return result;
+        } catch (error: any) {
+            return error;
+        }
+    }
 }

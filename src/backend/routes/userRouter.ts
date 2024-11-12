@@ -38,4 +38,15 @@ userRouter.delete("/:id", validateNumericParams, async (req: Express.Request, re
     res.status(statusCode).json({ message: result.message });
 });
 
+userRouter.put("/:id", validateNumericParams, async (req: Express.Request, res: Express.Response) => {
+    const updates: { [key: string]: any } = req.body;
+    const result: ProcessResult = await UserController.updateUserById(req.params.id, updates);
+    let statusCode = 200;
+    if (!result.success && result.rowsAffected === 0) statusCode = 404;
+    if (!result.success && !("rowsAffected" in result)) statusCode = 500;
+    res.status(statusCode).json({ message: result.message });
+});
+
+
+
 export default userRouter;

@@ -106,4 +106,29 @@ export  class UserModel {
             };
         }
     }
+    static async updateUserById(id: string, updates: { [key: string]: any }): Promise<ProcessResult> {
+        try {
+            const queryString = `UPDATE "user" SET ${Object.keys(updates).map((key, index) => `${key} = '${updates[key]}'`).join(', ')} WHERE "id" = ${id}`;
+            const result = await pool.query(queryString);
+            if (result.rowCount && result.rowCount > 0) {
+                return {
+                    success: true,
+                    message: `Usuario actualizado correctamente.`,
+                    rowsAffected: result.rowCount
+                };
+            } else {
+                return {
+                    success: false,
+                    message: 'No se encontró el usuario',
+                    rowsAffected: 0
+                };
+            }
+        } catch (error) {
+            return {
+                success: false,
+                message: `Error al actualizar usuario: ${(error as Error).message}`,
+                rowsAffected: 0
+            };
+        }
+    }
 }

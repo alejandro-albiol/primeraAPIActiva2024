@@ -31,7 +31,7 @@ export class AssociationTypeModel {
 
     static async createAssociationType(type: AssociationType): Promise<ProcessResult> {
         try {
-            const queryString = `INSERT INTO association_type (type_name) VALUES ('${type.type}') RETURNING *`;
+            const queryString = `INSERT INTO association_type (type_name) VALUES ('${type.type_name}') RETURNING *`;
             const result = await pool.query(queryString);
             if (result.rowCount && result.rowCount > 0) {
                 return {
@@ -55,9 +55,9 @@ export class AssociationTypeModel {
         }
     }
 
-    static async updateAssociationType(id: string, type: AssociationType): Promise<ProcessResult> {
+    static async updateAssociationType(type: AssociationType): Promise<ProcessResult> {
         try {
-            const queryString = `UPDATE association_type SET type_name = '${type.type}' WHERE id = '${id}' RETURNING *`;
+            const queryString = `UPDATE association_type SET type_name = '${type.type_name}' WHERE id = '${type.id}' RETURNING *`;
             const result = await pool.query(queryString);
             if (result.rowCount && result.rowCount > 0) {
                 return {

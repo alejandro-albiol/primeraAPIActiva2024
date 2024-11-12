@@ -7,7 +7,7 @@ const app = Express();
 const port = 3000;
 
 app.use(Express.urlencoded({ extended: true }));
-
+app.use(Express.json()); 
 app.use(Express.static(publicPath));
 
 app.use("/", staticRouter);

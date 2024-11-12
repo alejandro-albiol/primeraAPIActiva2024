@@ -29,9 +29,9 @@ export class AssociationTypeController {
         }
     }
 
-    static async updateAssociationType(id: string, type: AssociationType): Promise<ProcessResult> {
+    static async updateAssociationType(type: AssociationType): Promise<ProcessResult> {
         try {
-            const result = await AssociationTypeModel.updateAssociationType(id, type);
+            const result = await AssociationTypeModel.updateAssociationType(type);
             return result;
         } catch (error) {
             return {
