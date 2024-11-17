@@ -66,21 +66,21 @@ Una vez ejecutados los comandos en la consola (en la raíz del repositorio), pod
 
 2. Recomendaciones para las pruebas en Postman (en orden):
 
-    - Crear un tipo de associación (ej. Comercios).
+    - Crear un tipo de asociación (ej. Comercios).
     - Crear una asociación.
     - Crear un usuario.
 
-Despues de seguir los pasos anteriores en el orden mostrado, se pueden probar todos los endpoints.
+Después de seguir los pasos anteriores en el orden mostrado, se pueden probar todos los endpoints.
 
-## Cambios realizados en el codigo.
+## Cambios realizados en el código.
 
-Los cambios mas relevantes realizados en el codigo para seguir unas buenas prácticas de codigo y una consistencia son los siguientes:
+Los cambios más relevantes realizados en el código para seguir unas buenas prácticas de código y una consistencia son los siguientes:
 
 - Creación de clases para los modelos y controladores, facilitando el uso de las funciones y la distinción.
 
-- Implementación de la interfaz "ProcessResult" para la comunicación al cliente. He modificado la interfaz "DeleteResult" para hacerla mas generica, y asi poder emplearla en cada una de las comunicaciones con la base de datos para facilitar la gestión de errores y la información al usuario.
+- Implementación de la interfaz "ProcessResult" para la comunicación al cliente. He modificado la interfaz "DeleteResult" para hacerla más genérica, y asi poder emplearla en cada una de las comunicaciones con la base de datos para facilitar la gestión de errores y la información al usuario.
 
-- Ajuste de las consultas de SQL para evitar los atques de inserción de SQL y mejorar la seguridad de la aplicación.
+- Ajuste de las consultas de SQL para evitar los ataques de inserción de SQL y mejorar la seguridad de la aplicación.
 
 - Creación de la entidad "Association" y "AssociationType", donde se gestionan asociaciones de gente y los diversos tipos de colectivos (clubs, asociaciones culturales, de comercios...)
 
