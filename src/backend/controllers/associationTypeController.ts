@@ -11,7 +11,7 @@ export class AssociationTypeController {
             return {
                 success: false,
                 message: `Error fetching association types: ${(error as Error).message}`,
-                rowsAffected: 0
+                rows_affected: 0
             };
         }
     }
@@ -24,7 +24,7 @@ export class AssociationTypeController {
             return {
                 success: false,
                 message: `Error creating association type: ${(error as Error).message}`,
-                rowsAffected: 0
+                rows_affected: 0
             };
         }
     }
@@ -37,7 +37,7 @@ export class AssociationTypeController {
             return {
                 success: false,
                 message: `Error updating association type: ${(error as Error).message}`,
-                rowsAffected: 0
+                rows_affected: 0
             };
         }
     }
@@ -50,7 +50,7 @@ export class AssociationTypeController {
             return {
                 success: false,
                 message: `Error deleting association type: ${(error as Error).message}`,
-                rowsAffected: 0
+                rows_affected: 0
             };
         }
     }
@@ -63,7 +63,7 @@ export class AssociationTypeController {
             return {
                 success: false,
                 message: `Error fetching association type: ${(error as Error).message}`,
-                rowsAffected: 0
+                rows_affected: 0
             };
         }
     }

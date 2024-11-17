@@ -11,7 +11,7 @@ export class UserController {
             if (error.code === "23505") {
                 const columnMatch = error.detail.match(/Key \((.*?)\)=/);
                 const columnName = columnMatch ? columnMatch[1] : 'campo';
-                return { success: false, message: `El ${columnName} ya existe en la base de datos`, rowsAffected: 0 };
+                return { success: false, message: `El ${columnName} ya existe en la base de datos`, rows_affected: 0 };
             }
             return error;
         }

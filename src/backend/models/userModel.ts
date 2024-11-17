@@ -2,29 +2,30 @@ import pool from "../config/configDb.js";
 import { ProcessResult } from "../types/ProcessResult.js";
 import { User } from "../types/User.js";
 
-export  class UserModel {
+export class UserModel {
     static async saveNewUser(user: User): Promise<ProcessResult> {
         try {
-            const queryString = `INSERT INTO "user" ("userName", "name", "first_surname", "password", "email") VALUES ('${user.userName}', '${user.name}', '${user.first_surname}', '${user.password}','${user.email}')`;
-            const result = await pool.query(queryString);
+            const queryString = `INSERT INTO "user" ("user_name", "name", "first_surname", "password", "email") VALUES ($1, $2, $3, $4, $5)`;
+            const values = [user.user_name, user.name, user.first_surname, user.password, user.email];
+            const result = await pool.query(queryString, values);
             if (result.rowCount && result.rowCount > 0) {
                 return {
                     success: true,
-                    message: 'Usuario creado',
-                    rowsAffected: result.rowCount
+                    message: 'User created',
+                    rows_affected: result.rowCount
                 };
             } else {
                 return {
                     success: false,
-                    message: 'No se pudo crear el usuario',
-                    rowsAffected: 0
+                    message: 'Failed to create user',
+                    rows_affected: 0
                 };
             }
         } catch (error) {
             return {
                 success: false,
-                message: `Error al crear usuario: ${(error as Error).message}`,
-                rowsAffected: 0
+                message: `Error creating user: ${(error as Error).message}`,
+                rows_affected: 0
             };
         }
     }
@@ -37,72 +38,72 @@ export  class UserModel {
                 return {
                     success: true,
                     message: result.rows,
-                    rowsAffected: result.rowCount,
+                    rows_affected: result.rowCount,
                 };
             } else {
                 return {
                     success: false,
-                    message: 'No se encontraron usuarios',
-                    rowsAffected: 0
+                    message: 'No users found',
+                    rows_affected: 0
                 };
             }
         } catch (error) {
             return {
                 success: false,
-                message: `Error al buscar usuarios: ${(error as Error).message}`,
-                rowsAffected: 0
+                message: `Error finding users: ${(error as Error).message}`,
+                rows_affected: 0
             };
         }
     }
 
     static async findUserById(id: string): Promise<ProcessResult> {
         try {
-            const queryString = `SELECT * FROM "user" WHERE "id" = ${id}`;
-            const result = await pool.query(queryString);
+            const queryString = `SELECT * FROM "user" WHERE "id" = $1`;
+            const result = await pool.query(queryString, [id]);
             if (result.rowCount && result.rowCount > 0) {
                 return {
                     success: true,
                     message: result.rows,
-                    rowsAffected: result.rowCount
+                    rows_affected: result.rowCount
                 };
             } else {
                 return {
                     success: false,
-                    message: 'No se encontró el usuario',
-                    rowsAffected: 0
+                    message: 'User not found',
+                    rows_affected: 0
                 };
             }
         } catch (error) {
             return {
                 success: false,
-                message: `Error al buscar usuario: ${(error as Error).message}`,
-                rowsAffected: 0
+                message: `Error finding user: ${(error as Error).message}`,
+                rows_affected: 0
             };
         }
     }
 
     static async deleteUserById(id: string): Promise<ProcessResult> {
         try {
-            const queryString = `DELETE FROM "user" WHERE "id" = ${id}`;
-            const result = await pool.query(queryString);
+            const queryString = `DELETE FROM "user" WHERE "id" = $1`;
+            const result = await pool.query(queryString, [id]);
             
             if (result.rowCount && result.rowCount > 0) {
                 return {
                     success: true,
-                    message: `Usuario eliminado correctamente.`,
-                    rowsAffected: result.rowCount
+                    message: `User deleted successfully.`,
+                    rows_affected: result.rowCount
                 };
             } else {
                 return {
                     success: false,
-                    message: 'No se encontró el usuario',
-                    rowsAffected: 0
+                    message: 'User not found',
+                    rows_affected: 0
                 };
             }
         } catch (error) {
             return {
                 success: false,
-                message: `Error al eliminar usuario: ${(error as Error).message}`
+                message: `Error deleting user: ${(error as Error).message}`
             };
         }
     }
@@ -113,21 +114,21 @@ export  class UserModel {
             if (result.rowCount && result.rowCount > 0) {
                 return {
                     success: true,
-                    message: `Usuario actualizado correctamente.`,
-                    rowsAffected: result.rowCount
+                    message: `User updated successfully.`,
+                    rows_affected: result.rowCount
                 };
             } else {
                 return {
                     success: false,
-                    message: 'No se encontró el usuario',
-                    rowsAffected: 0
+                    message: 'User not found',
+                    rows_affected: 0
                 };
             }
         } catch (error) {
             return {
                 success: false,
-                message: `Error al actualizar usuario: ${(error as Error).message}`,
-                rowsAffected: 0
+                message: `Error updating user: ${(error as Error).message}`,
+                rows_affected: 0
             };
         }
     }

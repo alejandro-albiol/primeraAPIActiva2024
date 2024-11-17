@@ -11,7 +11,7 @@ export class AssociationController {
             return {
                 success: false,
                 message: `Error fetching associations: ${(error as Error).message}`,
-                rowsAffected: 0
+                rows_affected: 0
             };
         }
     }
@@ -24,7 +24,7 @@ export class AssociationController {
             return {
                 success: false,
                 message: `Error creating association: ${(error as Error).message}`,
-                rowsAffected: 0
+                rows_affected: 0
             };
         }
     }
@@ -37,7 +37,7 @@ export class AssociationController {
             return {
                 success: false,
                 message: `Error fetching association: ${(error as Error).message}`,
-                rowsAffected: 0
+                rows_affected: 0
             };
         }
     }
@@ -50,7 +50,7 @@ export class AssociationController {
             return {
                 success: false,
                 message: `Error deleting association: ${(error as Error).message}`,
-                rowsAffected: 0
+                rows_affected: 0
             };
         }
     }
